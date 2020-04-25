@@ -1,36 +1,30 @@
 import * as React from "react";
 import { Image, Text, View } from "react-native";
+import { store } from "./redux/store";
+import Users from "./pages/Users";
+import { Provider } from "react-redux";
+import { setBaseUrl } from "./utils/helper";
 
 interface PropsApp {
   text: String;
 }
 
-export const App: React.FC<PropsApp> = props => {
-  const image = require("./art/welcome.png");
+export const App: React.FC<PropsApp> = (props) => {
+  console.log(props.text);
+  setBaseUrl();
+
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center"
-      }}
-    >
-      <Image
-        resizeMode="contain"
-        style={{ width: "100%", height: 300 }}
-        source={image}
-      />
-      <Text
+    <Provider store={store}>
+      <View
         style={{
-          textAlign: "center",
-          fontSize: 50,
-          fontFamily: "Helvetica",
-          fontWeight: "bold"
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        {`React Native ${props.text}'e Hoşgeldiniz.`}
-      </Text>
-    </View>
+        <Users />
+      </View>
+    </Provider>
   );
 };
 export default App;
